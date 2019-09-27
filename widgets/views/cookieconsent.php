@@ -19,10 +19,10 @@ window.cookieconsent.initialise({
     }
   },
   "content": {
-    "message": "'.$message.'",
-    "dismiss": "'.$dismiss.'",
-    "link": "'.$link.'",
-    "href": "'.$href.'"
+    "message": \''.$message.'\',
+    "dismiss": \''.$dismiss.'\',
+    "link":  \''.$link.'\',
+    "href":  \''.$href.'\'
   }
 });
 ';
