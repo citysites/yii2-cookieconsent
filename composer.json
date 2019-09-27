@@ -1,0 +1,27 @@
+{
+    "name": "citysites/yii2-cookieconsent",
+    "description": "Yii2 wrap for https://github.com/osano/cookieconsent",
+    "keywords": ["yii2","asset","cookieconsent"],
+    "license": "BSD-3-Clause",
+    "require": {
+        "yiisoft/yii2": "^2.0",
+        "npm-asset/cookieconsent": "^3.1"
+    },
+    "authors": [
+        {
+            "name": "nikosid",
+            "email": "nikosid@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "citysites\\": ""
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
