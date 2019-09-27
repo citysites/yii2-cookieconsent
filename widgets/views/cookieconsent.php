@@ -6,10 +6,6 @@
  * @var string $href
  */
 
-use citysites\assets\CookieconsentAsset;
-
-CookieconsentAsset::register($this);
-
 $js = '
 window.cookieconsent.initialise({
   "palette": {
@@ -23,11 +19,12 @@ window.cookieconsent.initialise({
     }
   },
   "content": {
-    message: ' . $message . ',
-    "dismiss": ' . $dismiss . ',
-    "link": ' . $link . ',
-    "href": ' . $href . '
+    "message": "'.$message.'",
+    "dismiss": "'.$dismiss.'",
+    "link": "'.$link.'",
+    "href": "'.$href.'"
   }
 });
 ';
+
 $this->registerJs($js, \yii\web\View::POS_END);

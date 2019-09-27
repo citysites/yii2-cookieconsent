@@ -12,6 +12,26 @@ class CookieconsentWidget extends Widget
     public $link;
     public $href;
 
+    public function init()
+    {
+        parent::init();
+
+        // Default Value
+        if(!$this->message) {
+            $this->message = 'This website uses cookies to ensure you get the best experience on our website.';
+        }
+        if(!$this->dismiss) {
+            $this->dismiss = 'Got It!';
+        }
+        if(!$this->link) {
+            $this->link = null;
+        }
+        if(!$this->href) {
+            $this->href = null;
+        }
+    }
+
+
     /**
      * @param array $params
      *

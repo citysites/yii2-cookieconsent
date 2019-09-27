@@ -6,6 +6,7 @@ use yii\web\AssetBundle;
 
 class CookieconsentAsset extends AssetBundle
 {
+
     public $sourcePath = '@vendor/npm-asset/cookieconsent/build';
 
     public $css = [
