@@ -17,6 +17,7 @@ or add ```"citysites/yii2-cookieconsent": "*"``` to the require section of your 
 ## Usage
 
 ```php
-use \citysites\widgets\CookieconsentWidget;
-echo CookieconsentWidget::widget();
+use \citysites\widgets\CookieConsent;
+...
+echo CookieConsent::widget();
 ```
