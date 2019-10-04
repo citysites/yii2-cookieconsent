@@ -10,9 +10,9 @@ All documantation about cookieconsent you can find [here](https://cookieconsent.
 
 The preferred way to install this extension is through [Composer](http://getcomposer.org/).
 
-Either run ```composer require citysites/yii2-cookieconsent```
+Either run ```composer require citysites/yii2-cookieconsent "dev-master"```
 
-or add ```"citysites/yii2-cookieconsent": "*"``` to the require section of your ```composer.json```
+or add ```"citysites/yii2-cookieconsent": "dev-master"``` to the require section of your ```composer.json```
 
 ## Usage
 
