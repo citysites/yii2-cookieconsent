@@ -9,7 +9,7 @@ class CookieConsentAsset extends AssetBundle
     /**
      * {@inheritDoc}
      */
-    public $sourcePath = '@vendor/npm-asset/cookieconsent/build';
+    public $sourcePath = '@vendor/npm-asset/cookieconsent';
     /**
      * {@inheritDoc}
      */
@@ -20,6 +20,6 @@ class CookieConsentAsset extends AssetBundle
      * {@inheritDoc}
      */
     public $js = [
-        'cookieconsent.min.js',
+        YII_ENV_DEV ? 'src/cookieconsent.js' : 'build/cookieconsent.min.js',
     ];
 }
