@@ -26,6 +26,10 @@ class CookieConsent extends Widget
      * @var string|array
      */
     public $url;
+    /**
+     * @var array
+     */
+    public $cookieOptions = [];
 
     /**
      * {@inheritDoc}
@@ -38,6 +42,13 @@ class CookieConsent extends Widget
         if (null === $this->dismiss) {
             $this->dismiss = 'Got It!';
         }
+        $this->cookieOptions = array_merge([
+            'name' => 'cookieconsent_status',
+            'path' => '/',
+            'domain' => '',
+            'expiryDays' => 365,
+            'secure' => false
+        ], $this->cookieOptions);
         parent::init();
     }
 
@@ -47,8 +58,9 @@ class CookieConsent extends Widget
     public function run()
     {
         $js = /** @lang JavaScript */ <<<'JS'
-function (message, dismiss, link, url) {
+function (message, dismiss, link, url, cookieOptions) {
     window.cookieconsent.initialise({
+        cookie: cookieOptions,
         palette: {
             popup: {
                 background: "#3498db",
@@ -71,12 +83,13 @@ JS;
         $view = $this->getView();
         CookieConsentAsset::register($view);
         $view->registerJs(sprintf(
-            '(%s)(%s, %s, %s, %s);',
+            '(%s)(%s, %s, %s, %s, %s);',
             $js,
             Json::encode($this->message),
             Json::encode($this->dismiss),
-            Json::encode($this->dismiss),
-            Json::encode(null !== $this->url ? Url::to($this->url, true) : null)
+            Json::encode($this->link),
+            Json::encode(null !== $this->url ? Url::to($this->url, true) : null),
+            Json::encode($this->cookieOptions)
         ), View::POS_END);
 
         return '';
