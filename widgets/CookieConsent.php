@@ -59,7 +59,7 @@ class CookieConsent extends Widget
     {
         $js = /** @lang JavaScript */ <<<'JS'
 function (message, dismiss, link, url, cookieOptions) {
-    window.cookieconsent.initialise({
+    var options = {
         cookie: cookieOptions,
         palette: {
             popup: {
@@ -77,7 +77,14 @@ function (message, dismiss, link, url, cookieOptions) {
             link: link,
             href: url
         }
-    });
+    };
+    
+    var instance = new cookieconsent.Popup(options);
+    var cookieConsent = document.querySelectorAll('.js--cookie-consent');
+    
+    if (cookieConsent.length) {
+        cookieConsent[0].insertBefore(instance.element, cookieConsent[0].childNodes[0]);
+    }
 }
 JS;
         $view = $this->getView();
