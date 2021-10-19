@@ -4,6 +4,7 @@ namespace citysites\widgets;
 
 use citysites\assets\CookieConsentAsset;
 use yii\base\Widget;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\View;
@@ -30,6 +31,25 @@ class CookieConsent extends Widget
      * @var array
      */
     public $cookieOptions = [];
+    /**
+     * @var array
+     */
+    public $pluginOptions = [
+        'palette' => [
+            'popup' => [
+                'background' => '#3498db',
+                'text' => '#ffffff',
+            ],
+            'button' => [
+                'background' => '#9cc300',
+                'text' => '#ffffff',
+            ],
+        ],
+    ];
+    /**
+     * @var string|null
+     */
+    public $containerSelector;
 
     /**
      * {@inheritDoc}
@@ -58,47 +78,41 @@ class CookieConsent extends Widget
     public function run()
     {
         $js = /** @lang JavaScript */ <<<'JS'
-function (message, dismiss, link, url, cookieOptions) {
-    var options = {
-        cookie: cookieOptions,
-        palette: {
-            popup: {
-                background: "#3498db",
-                text: "#ffffff"
-            },
-            button: {
-                background: "#9cc300",
-                text: "#ffffff"
-            }
-        },
-        content: {
-            message: message,
-            dismiss: dismiss,
-            link: link,
-            href: url
+function (options, containerSelector) {
+    if (null !== containerSelector && undefined === options.container) {
+        var container = document.querySelector(containerSelector);
+        if (null !== container) {
+            options.container = container;
         }
-    };
-    
-    var instance = new cookieconsent.Popup(options);
-    var cookieConsent = document.querySelectorAll('.js--cookie-consent');
-    
-    if (cookieConsent.length) {
-        cookieConsent[0].insertBefore(instance.element, cookieConsent[0].childNodes[0]);
     }
+    window.cookieconsent.initialise(options);
 }
 JS;
         $view = $this->getView();
         CookieConsentAsset::register($view);
         $view->registerJs(sprintf(
-            '(%s)(%s, %s, %s, %s, %s);',
+            '(%s)(%s, %s);',
             $js,
-            Json::encode($this->message),
-            Json::encode($this->dismiss),
-            Json::encode($this->link),
-            Json::encode(null !== $this->url ? Url::to($this->url, true) : null),
-            Json::encode($this->cookieOptions)
+            Json::encode($this->buildPluginOptions()),
+            Json::encode($this->containerSelector)
         ), View::POS_END);
 
         return '';
+    }
+
+    /**
+     * @return array
+     */
+    protected function buildPluginOptions(): array
+    {
+        return ArrayHelper::merge([
+            'cookie' => $this->cookieOptions,
+            'content' => [
+                'message' => $this->message,
+                'dismiss' => $this->dismiss,
+                'link' => $this->link,
+                'href' => null !== $this->url ? Url::to($this->url, true) : null,
+            ],
+        ], $this->pluginOptions);
     }
 }

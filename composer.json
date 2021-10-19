@@ -4,6 +4,7 @@
     "keywords": ["yii2","asset","cookieconsent"],
     "license": "BSD-3-Clause",
     "require": {
+        "php": ">=7.2",
         "yiisoft/yii2": "^2.0",
         "npm-asset/cookieconsent": "^3.1"
     },
